@@ -6,12 +6,20 @@ import Button, { BUTTON_TYPES } from "../../components/Button";
 
 const mockContactApi = () => new Promise((resolve) => { setTimeout(resolve, 1000); })
 
+
 const Form = ({ onSuccess, onError }) => {
   const [sending, setSending] = useState(false);
+   // State pour gérer les valeurs des champs du formulaire
+   const [name, setName] = useState("");
+   const [firstname, setFirstName]= useState("");
+   const [type, setType]= useState("");
+
   const sendContact = useCallback(
     async (evt) => {
       evt.preventDefault();
+      console.log("Formulaire soumis", name);
       setSending(true);
+
       // We try to call mockContactApi
       try {
         await mockContactApi();
@@ -21,13 +29,14 @@ const Form = ({ onSuccess, onError }) => {
         onError(err);
       }
     },
-    [onSuccess, onError]
+    [onSuccess, onError, name]
   );
   return (
     <form onSubmit={sendContact}>
       <div className="row">
-        <div className="col">
-          <Field placeholder="" label="Nom" />
+        <div  className="col">
+        {/* <input id="nom" placeholder="Nom" value={name}  onChange={(e) => setName(e.target.value)}  /> */}
+          <Field  placeholder="" label="Nom" />
           <Field placeholder="" label="Prénom" />
           <Select
             selection={["Personel", "Entreprise"]}
