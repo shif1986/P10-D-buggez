@@ -4,20 +4,36 @@ import Field, { FIELD_TYPES } from "../../components/Field";
 import Select from "../../components/Select";
 import Button, { BUTTON_TYPES } from "../../components/Button";
 
-const mockContactApi = () => new Promise((resolve) => { setTimeout(resolve, 1000); })
-
+const mockContactApi = () =>
+  new Promise((resolve) => {
+    setTimeout(resolve, 1000);
+  });
 
 const Form = ({ onSuccess, onError }) => {
   const [sending, setSending] = useState(false);
-   // State pour gérer les valeurs des champs du formulaire
-   const [name, setName] = useState("");
-   const [firstname, setFirstName]= useState("");
-   const [type, setType]= useState("");
+  // State pour gérer les valeurs des champs du formulaire
+  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState('');
+  const [selectedOption, setSelectedOption] = useState('')
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
+
+
+
+
+
+  console.log("Formulaire name", name);
+  console.log("Formulaire firstName :", firstName);
+  console.log("Formulaire Option : ", selectedOption );
+  console.log("Formulaire EMAIL : ", email);
+  console.log("Formulaire Message : ", message );
+
+
 
   const sendContact = useCallback(
     async (evt) => {
       evt.preventDefault();
-      console.log("Formulaire soumis", name);
+
       setSending(true);
 
       // We try to call mockContactApi
@@ -29,29 +45,33 @@ const Form = ({ onSuccess, onError }) => {
         onError(err);
       }
     },
-    [onSuccess, onError, name]
+    [onSuccess, onError]
   );
   return (
     <form onSubmit={sendContact}>
       <div className="row">
-        <div  className="col">
-        {/* <input id="nom" placeholder="Nom" value={name}  onChange={(e) => setName(e.target.value)}  /> */}
-          <Field  placeholder="" label="Nom" />
-          <Field placeholder="" label="Prénom" />
-          <Select
+        <div className="col">
+          {/* <input id="nom" placeholder="Nom" value={name}  onChange={(e) => setName(e.target.value)}  /> */}
+          <Field value={name} onChange={(e)=>setName(e.target.value)} placeholder="" label="Nom" />
+          <Field value={firstName} onChange={(e)=>setFirstName(e.target.value)} placeholder="" label="Prénom" />
+          <Select 
+          
             selection={["Personel", "Entreprise"]}
-            onChange={() => null}
+            value={selectedOption}
+            onChange={(e) => setSelectedOption(e.target.value)}
             label="Personel / Entreprise"
             type="large"
             titleEmpty
           />
-          <Field placeholder="" label="Email" />
+          <Field value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="" label="Email" />
           <Button type={BUTTON_TYPES.SUBMIT} disabled={sending}>
             {sending ? "En cours" : "Envoyer"}
           </Button>
         </div>
         <div className="col">
-          <Field
+          <Field 
+            onChange={(e)=>setMessage(e.target.value)}
+            value={message} 
             placeholder="message"
             label="Message"
             type={FIELD_TYPES.TEXTAREA}
@@ -65,11 +85,11 @@ const Form = ({ onSuccess, onError }) => {
 Form.propTypes = {
   onError: PropTypes.func,
   onSuccess: PropTypes.func,
-}
+};
 
 Form.defaultProps = {
   onError: () => null,
   onSuccess: () => null,
-}
+};
 
 export default Form;
