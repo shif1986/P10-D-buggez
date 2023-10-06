@@ -10,15 +10,15 @@ const Select = ({
   onChange,
   name,
   titleEmpty,
-  value,
   label,
   type = "normal",
 }) => {
-
+  const [value, setValue] = useState();
   const [collapsed, setCollapsed] = useState(true);
   const changeValue = (newValue) => {
     onChange(newValue);
-    setCollapsed(false);
+    setValue(newValue);
+    setCollapsed(newValue);
   };
   return (
     <div className={`SelectContainer ${type}`} data-testid="select-testid">
@@ -32,14 +32,14 @@ const Select = ({
             <>
               {!titleEmpty && (
                 <li onClick={() => changeValue(null)}>
-                  <input defaultChecked={value === null} name="selected" type="radio" />{" "}
+                  <input defaultChecked={!value} name="selected" type="radio" />{" "}
                   Toutes
                 </li>
               )}
               {selection.map((s) => (
-                <li key={s} onClick={onChange} >
+                <li key={s} onClick={() => changeValue(s)}>
                   <input
-                    defaultChecked={value}
+                    defaultChecked={value === s}
                     name="selected"
                     type="radio"
                   />{" "}
@@ -88,14 +88,12 @@ Select.propTypes = {
   titleEmpty: PropTypes.bool,
   label: PropTypes.string,
   type: PropTypes.string,
-  value: PropTypes.string
 }
 
 Select.defaultProps = {
   onChange: () => null,
   titleEmpty: false,
   label: "",
-  value:'',
   type: "normal",
   name: "select",
 }

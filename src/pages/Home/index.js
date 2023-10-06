@@ -15,7 +15,11 @@ import { useData } from "../../contexts/DataContext";
 const Page = () => {
   const {data} = useData()
   // const [index, setIndex] = useState(0);
-  console.log("LAST DATA",data);
+  // const test = data?.events.filter(item=>)
+  
+
+  console.log("DATA ",data?.events[4].cover);
+ 
   return <>
     <header>
       <Menu />
@@ -118,13 +122,18 @@ const Page = () => {
     <footer className="row">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
-        <EventCard
-          imageSrc={data?.cover}
-          title={data?.title}
-          date={new Date(data?.date)}
-          small
-          label="boom"
-        />
+        {data?.events.length > 0 && (
+          
+          // Vignette 
+
+    <EventCard
+      imageSrc={data?.events[0].cover}
+      title={data?.events[0].title}
+      date={new Date(data?.events[3].date)}
+      small
+      label="boom"
+    />
+  )}
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>
