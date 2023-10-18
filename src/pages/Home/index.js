@@ -13,13 +13,10 @@ import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  const {data} = useData()
-  // const [index, setIndex] = useState(0);
-  // const test = data?.events.filter(item=>)
+  const {data} = useData();
   
-
-  console.log("DATA ",data?.events[4].cover);
- 
+   const last = data?.events.sort((first, next) =>
+     new Date(next.date) - new Date(first.date))[0];
   return <>
     <header>
       <Menu />
@@ -122,18 +119,18 @@ const Page = () => {
     <footer className="row">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
-        {data?.events.length > 0 && (
-          
-          // Vignette 
-
-    <EventCard
-      imageSrc={data?.events[0].cover}
-      title={data?.events[0].title}
-      date={new Date(data?.events[3].date)}
-      small
-      label="boom"
-    />
-  )}
+        {last && (
+            <EventCard
+              imageSrc={last?.cover}
+              title={last?.title}
+              date={new Date(last?.date)}
+              small
+              label="Boom"
+        />  
+        )
+        };
+             
+       
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>
