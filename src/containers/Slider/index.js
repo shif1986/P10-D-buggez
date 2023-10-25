@@ -8,13 +8,16 @@ const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
-    new Date(evtA.date) > new Date(evtB.date) ? -1 : 0
-  );
+   
+  new Date(evtA.date) > new Date(evtB.date) ? -1 : 0);
   
   useEffect(() => {
     const nextCard = setTimeout(
+      // simplement j'ai modifié le slide pour demarrer de -1 = 3em  et dernier image, 0 = revenir au 1er image 
       () => setIndex(index < byDateDesc.length -1 ? index + 1 : 0),
+    
       5000)
+     
     return () => clearTimeout(nextCard); // deplacer timeout dans use effect error console
   });
   return (
@@ -42,15 +45,17 @@ const Slider = () => {
               </div>
             </div>
           </div>
-            
+
+            {/* Selecteur Slide */}
+
           <div className="SlideCard__paginationContainer">
             <div className="SlideCard__pagination">
               {byDateDesc.map((_,radioIdx) => (
                 <input
-                  key={`${_.title}`} // error console
+                  key={`${event.title}`} // event.title permet de parcourir les titre des slides
                   type="radio"
                   name="radio-button"
-                  checked={index === radioIdx}
+                  checked={index === radioIdx} // "index" fait parcourir les selecteur, 'idx' le bloqué
                   readOnly
                 />
               ))}

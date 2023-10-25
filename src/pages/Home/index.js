@@ -12,11 +12,17 @@ import Form from "../../containers/Form";
 import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
+
+
 const Page = () => {
+                            // variable data permet d'obtenir les donnees
   const {data} = useData();
   
    const last = data?.events.sort((first, next) =>
-     new Date(next.date) - new Date(first.date))[0];
+    new Date(next.date) - new Date(first.date))[0];
+                        //  chemin un haut permet les dates et images presente, 
+                        //   [0] permet de d'affiché le dernier img et date 
+   
   return <>
     <header>
       <Menu />
@@ -116,6 +122,9 @@ const Page = () => {
         </Modal>
       </div>
     </main>
+
+    {/* Vignette */}
+
     <footer className="row">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
@@ -128,7 +137,7 @@ const Page = () => {
               label="Boom"
         />  
         )
-        };
+        }
              
        
       </div>
