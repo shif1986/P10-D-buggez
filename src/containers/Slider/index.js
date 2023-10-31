@@ -8,13 +8,16 @@ const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
-   
+// new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
   new Date(evtA.date) > new Date(evtB.date) ? -1 : 0);
-  
+
+  // event date supperieur, il prend dernier date Mars, mai, Janvier, puis 0 = revient debut tableau
+
   useEffect(() => {
     const nextCard = setTimeout(
-      // simplement j'ai modifié le slide pour demarrer de -1 = 3em  et dernier image, 0 = revenir au 1er image 
+  // () => setIndex(index < byDateDesc.length ? index + 1 : 0), // ou il vas chercher 4eme img, fait page blanche  
       () => setIndex(index < byDateDesc.length -1 ? index + 1 : 0),
+  // index inferieur < de tableau alors +1 avance une image, 0 = si non ça revient debut de tableau
     
       5000)
      
@@ -52,10 +55,10 @@ const Slider = () => {
             <div className="SlideCard__pagination">
               {byDateDesc.map((_,radioIdx) => (
                 <input
-                  key={`${event.title}`} // event.title permet de parcourir les titre des slides
+                  key={`${event.id}`} 
                   type="radio"
                   name="radio-button"
-                  checked={index === radioIdx} // "index" fait parcourir les selecteur, 'idx' le bloqué
+                  checked={index === radioIdx} // "index" fait suivre les bullets points
                   readOnly
                 />
               ))}

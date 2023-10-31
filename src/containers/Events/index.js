@@ -13,12 +13,15 @@ const EventList = () => {
   const { data, error } = useData();
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
+
   const filteredEvents = (
-    (!type
-      ? data?.events
-      // j'ai rajouté le filtre d'eventement et eventement type 
+    (!type? data?.events
+      // Quand on sélectionne "toutes" dans le champ input select ça va afficher tous les événements
+       // (data?.events) sinon ça affichera que les événements du type qu'on a sélectionné via le filtre 
       : data?.events.filter((event) => event.type === type)) || []
-  ).filter((event, index) => {
+  )
+ 
+  .filter((event, index) => {
     if (
       (currentPage - 1) * PER_PAGE <= index &&
       PER_PAGE * currentPage > index
@@ -27,6 +30,7 @@ const EventList = () => {
     }
     return false;
   });
+  
   const changeType = (evtType) => {
     setCurrentPage(1);
     setType(evtType);

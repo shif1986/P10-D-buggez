@@ -15,13 +15,16 @@ import { useData } from "../../contexts/DataContext";
 
 
 const Page = () => {
-                            // variable data permet d'obtenir les donnees
+                           // Vignette
+    
+                            
   const {data} = useData();
   
    const last = data?.events.sort((first, next) =>
     new Date(next.date) - new Date(first.date))[0];
-                        //  chemin un haut permet les dates et images presente, 
-                        //   [0] permet de d'affiché le dernier img et date 
+                        // variable last recupere les eventements ou contiens les images, text
+                        //  sort = l'ordre de l'eventment plus recent et plus vieux chemin un haut permet les dates et images presente, 
+                        //   [0] prend le 1er element 
    
   return <>
     <header>
@@ -123,7 +126,7 @@ const Page = () => {
       </div>
     </main>
 
-    {/* Vignette */}
+                                       {/* Vignette */}
 
     <footer className="row">
       <div className="col presta">
@@ -135,6 +138,7 @@ const Page = () => {
               date={new Date(last?.date)}
               small
               label="Boom"
+              // last permet de recuperer l'eventement
         />  
         )
         }
