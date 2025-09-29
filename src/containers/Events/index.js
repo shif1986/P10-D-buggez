@@ -19,6 +19,10 @@ const EventList = () => {
       // Quand on sélectionne "toutes" dans le champ input select ça va afficher tous les événements
        // (data?.events) sinon ça affichera que les événements du type qu'on a sélectionné via le filtre 
       : data?.events.filter((event) => event.type === type)) || []
+      
+    // (!type
+    //   ? data?.events
+    //   : data?.events) || []
   )
  
   .filter((event, index) => {

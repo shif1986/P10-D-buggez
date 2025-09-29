@@ -58,7 +58,7 @@ const Slider = () => {
                   key={`${event.id}`} 
                   type="radio"
                   name="radio-button"
-                  checked={index === radioIdx} // "index" fait suivre les bullets points
+                  checked={index === radioIdx} // "index" fait suivre les bullets points, a la place de idx
                   readOnly
                 />
               ))}
